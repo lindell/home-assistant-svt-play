@@ -1,0 +1,30 @@
+play_suggested:
+  description: Play the suggested episode
+  fields:
+    program_name:
+      description: The name of the SVT program.
+      example: "rapport"
+    entity_id:
+      description: Name(s) of entities to play on.
+      example: "media_player.living_room_chromecast"
+play_latest:
+  description: Play the latest episode
+  fields:
+    program_name:
+      description: The name of the SVT program.
+      example: "rapport"
+    entity_id:
+      description: Name(s) of entities to play on.
+      example: "media_player.living_room_chromecast"
+    category:
+      description: Name(s) of categories that should be used.
+      example: "Klipp"
+play_channel:
+  description: Play the a specified channel
+  fields:
+    channel:
+      description: The name of the channel.
+      example: "svt1"
+    entity_id:
+      description: Name(s) of entities to play on.
+      example: "media_player.living_room_chromecast"

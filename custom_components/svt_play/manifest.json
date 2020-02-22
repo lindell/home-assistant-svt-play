@@ -1,0 +1,13 @@
+{
+    "domain": "svt_play",
+    "name": "SVT Play",
+    "documentation": "",
+    "dependencies": [
+        "media_player"
+    ],
+    "codeowners": [],
+    "requirements": [
+        "requests",
+        "iso8601"
+    ]
+}
