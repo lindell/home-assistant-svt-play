@@ -21,7 +21,7 @@ Play the latest video or clip from a specific program. There exist an option to 
   entity_id: media_player.living_room_tv
   data:
     program_name: skavlan
-    category: Intervjuer
+    category: Intervjuer # Optional
 ```
 
 ### Play Channel
