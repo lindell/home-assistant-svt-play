@@ -37,7 +37,7 @@ Play one of the svt channels.
 
 ### Add the code
 
-Copy the `custom_components/tv4_play` folder in this repository to `<home assistant config>/custom_components/tv4_play`
+Copy the `custom_components/svt_play` folder in this repository to `<home assistant config>/custom_components/svt_play`
 
 ### Active the service
 
