@@ -67,4 +67,4 @@ automation:
 1. Search an click on the program you want at [svtplay.se](https://www.svtplay.se/)
 2. From the url, grab the name.
 
-![](https://share.lindell.me/2020/02/ExpensiveYnambu.png)
+![](https://share.lindell.me/2020/02/SardonicBonobo.png)
