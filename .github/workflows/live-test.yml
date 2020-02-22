@@ -1,4 +1,4 @@
-name: Live test
+name: Daily test
 
 on:
   schedule:
