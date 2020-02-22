@@ -21,4 +21,4 @@ jobs:
       - name: Test with pytest
         run: |
           pip install pytest
-          pytest custom_components/svt_play/video_url_fetch/afternoon_test.py
+          pytest custom_components/svt_play/video_url_fetch/live_test.py
