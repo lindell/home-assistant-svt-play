@@ -1,6 +1,4 @@
-import pytest
-import json
-from video_fetch import information_by_program_id, video_url_by_channel, video_id_by_time, video_url_by_video_id, suggested_video_id
+from video_fetch import video_url_by_channel, video_id_by_time, video_url_by_video_id, suggested_video_id
 
 
 def test_rapport_by_time():

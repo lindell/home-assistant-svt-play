@@ -1,5 +1,3 @@
-import voluptuous as vol
-
 from typing import (
     List,
     Union,
