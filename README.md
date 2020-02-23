@@ -39,6 +39,10 @@ Play one of the svt channels.
 
 Copy the `custom_components/svt_play` folder in this repository to `<home assistant config>/custom_components/svt_play`
 
+Or: 
+
+Install via [Home Assistant Community Store](https://hacs.xyz/)
+
 ### Active the service
 
 Add:
