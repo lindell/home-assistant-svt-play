@@ -1,5 +1,6 @@
 Home Assistant SVT Play
 ----
+[![Daily test](https://github.com/lindell/home-assistant-svt-play/workflows/Daily%20test/badge.svg)](https://github.com/lindell/home-assistant-svt-play/actions?query=workflow%3A%22Daily+test%22)
 
 Play svt play programs or channels on home assistant media players.
 
