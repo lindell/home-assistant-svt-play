@@ -21,8 +21,10 @@ def video_url_by_channel(channel_id, formats=default_formats):
 
 def video_url_from_videoplayer_api(url, formats):
     data = get(url).json()
-    if 'msg' in data:
-        raise Exception("Could not fetch the CDN data: {}".format(data['msg']))
+    if 'message' in data:
+        raise Exception(
+            "Could not fetch video url: {}".format(data['message'])
+        )
 
     for format in formats:
         for video_reference in data['videoReferences']:
@@ -107,6 +109,11 @@ def information_by_program_id(program_id):
     }
 
     data = post('https://api.svt.se/contento/graphql', json=query_data).json()
+    if len(data['data']['listablesBySlug']) < 1:
+        raise Exception(
+            "Could not find program with id: {}".format(program_id)
+        )
+
     associated_content = data['data']['listablesBySlug'][0]
 
     return associated_content
