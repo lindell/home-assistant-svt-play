@@ -25,6 +25,16 @@ Play the latest video or clip from a specific program. There exist an option to 
     category: Intervjuer # Optional
 ```
 
+### Play random
+Play a random video or clip from a specific program. There exist an option to just random from specific categories.
+```yaml
+- service: svt_play.play_random
+  entity_id: media_player.living_room_tv
+  data:
+    program_name: skavlan
+    category: Intervjuer # Optional
+```
+
 ### Play Channel
 Play one of the svt channels.
 ```yaml
@@ -40,7 +50,7 @@ Play one of the svt channels.
 
 Copy the `custom_components/svt_play` folder in this repository to `<home assistant config>/custom_components/svt_play`
 
-Or: 
+Or:
 
 Install via [Home Assistant Community Store](https://hacs.xyz/)
 

@@ -1,4 +1,4 @@
-from video_fetch import video_url_by_channel, video_id_by_time, video_url_by_video_id, suggested_video_id
+from video_fetch import video_url_by_channel, video_id_by_time, video_url_by_video_id, suggested_video_id, random_video_id
 import pytest
 
 
@@ -32,3 +32,14 @@ def test_not_found_by_suggested():
 def test_not_found_channel():
     with pytest.raises(Exception, match="Could not fetch video url: Not found"):
         video_url_by_channel("svt1337")
+
+
+def test_random():
+    id = random_video_id('skavlan')
+    same_counter = 0
+    for _ in range(5):
+        new_id = random_video_id('skavlan')
+        print(new_id)
+        if id == new_id:
+            same_counter += 1
+    assert same_counter != 5
