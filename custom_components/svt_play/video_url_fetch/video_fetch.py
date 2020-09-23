@@ -67,13 +67,13 @@ def video_id_by_time(program_id, index=0, categories=None):
     return videos[index]['item']['videoSvtId']
 
 
-def random_video_id(program_id, categories=None):
+def random_video_id(program_id, categories=None, excluded_categories=["Upptäck mer"]):
     "Get a random video id from the specified program"
     program_data = information_by_program_id(program_id)
 
     videos = []
     for content in program_data['associatedContent']:
-        if categories is None or content['name'] in categories:
+        if (categories is None or content['name'] in categories) and not (content['name'] in excluded_categories):
             videos += content['items']
 
     index = random.randint(0, len(videos) - 1)
