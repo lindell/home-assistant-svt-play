@@ -51,7 +51,11 @@ async def async_setup(hass, config):
         entity_id = service.data.get(CONF_ENTITY_ID)
         program_name = service.data.get(CONF_PROGRAM_NAME)
 
-        video_url = video_url_by_video_id(suggested_video_id(program_name))
+        def fetch_video_url():
+            return video_url_by_video_id(
+                suggested_video_id(program_name)
+            )
+        video_url = await hass.async_add_executor_job(fetch_video_url)
 
         await hass.services.async_call('media_player', 'play_media', {
             'entity_id': entity_id,
@@ -69,9 +73,11 @@ async def async_setup(hass, config):
         program_name = service.data.get(CONF_PROGRAM_NAME)
         category = service.data.get(CONF_CATEGORY)
 
-        video_url = video_url_by_video_id(
-            video_id_by_time(program_name, categories=category)
-        )
+        def fetch_video_url():
+            return video_url_by_video_id(
+                video_id_by_time(program_name, categories=category)
+            )
+        video_url = await hass.async_add_executor_job(fetch_video_url)
 
         await hass.services.async_call('media_player', 'play_media', {
             'entity_id': entity_id,
@@ -89,9 +95,11 @@ async def async_setup(hass, config):
         program_name = service.data.get(CONF_PROGRAM_NAME)
         category = service.data.get(CONF_CATEGORY)
 
-        video_url = video_url_by_video_id(
-            random_video_id(program_name, categories=category)
-        )
+        def fetch_video_url():
+            return video_url_by_video_id(
+                random_video_id(program_name, categories=category)
+            )
+        video_url = await hass.async_add_executor_job(fetch_video_url)
 
         await hass.services.async_call('media_player', 'play_media', {
             'entity_id': entity_id,
@@ -108,7 +116,9 @@ async def async_setup(hass, config):
         entity_id = service.data.get(CONF_ENTITY_ID)
         channel = service.data.get(CONF_CHANNEL)
 
-        video_url = video_url_by_channel(channel)
+        def fetch_video_url():
+            return video_url_by_channel(channel)
+        video_url = await hass.async_add_executor_job(fetch_video_url)
 
         await hass.services.async_call('media_player', 'play_media', {
             'entity_id': entity_id,
