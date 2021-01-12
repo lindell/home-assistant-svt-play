@@ -5,7 +5,7 @@ from datetime import timezone
 import random
 import iso8601
 
-default_formats = ['dashhbbtv', 'hls-cmaf', 'hls']
+default_formats = ['hls', 'dash']
 
 
 def video_url_by_video_id(svt_video_id, formats=default_formats):
