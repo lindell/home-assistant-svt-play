@@ -1,6 +1,7 @@
 {
     "domain": "svt_play",
     "name": "SVT Play",
+    "version": "1.0.4",
     "documentation": "",
     "dependencies": [
         "media_player"
