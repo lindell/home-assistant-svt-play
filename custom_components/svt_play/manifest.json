@@ -8,7 +8,6 @@
     ],
     "codeowners": [],
     "requirements": [
-        "requests",
         "iso8601"
     ]
 }
