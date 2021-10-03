@@ -1,7 +1,7 @@
 import logging
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
-from .video_url_fetch.video_fetch import video_url_by_video_id, video_id_by_time, video_url_by_channel, suggested_video_id, random_video_id
+from .video_url_fetch.video_fetch import video_information_by_id, video_id_by_time, video_url_by_channel, suggested_video_id, random_video_id
 from .validation import category_names
 
 DOMAIN = "svt_play"
@@ -52,15 +52,19 @@ async def async_setup(hass, config):
         program_name = service.data.get(CONF_PROGRAM_NAME)
 
         def fetch_video_url():
-            return video_url_by_video_id(
+            return video_information_by_id(
                 suggested_video_id(program_name)
             )
-        video_url = await hass.async_add_executor_job(fetch_video_url)
+        video_info = await hass.async_add_executor_job(fetch_video_url)
 
         await hass.services.async_call('media_player', 'play_media', {
             'entity_id': entity_id,
-            'media_content_id': video_url,
-            'media_content_type': 'video'
+            'media_content_id': video_info['url'],
+            'media_content_type': 'video',
+            'extra': {
+                'title': video_info['name'],
+                'thumb': video_info['thumbnail'],
+            }
         })
     hass.services.async_register(
         DOMAIN, SERVICE_PLAY_SUGGESTED, play_suggested, SERVICE_PLAY_SUGGESTED_SCHEMA
@@ -74,15 +78,19 @@ async def async_setup(hass, config):
         category = service.data.get(CONF_CATEGORY)
 
         def fetch_video_url():
-            return video_url_by_video_id(
+            return video_information_by_id(
                 video_id_by_time(program_name, categories=category)
             )
-        video_url = await hass.async_add_executor_job(fetch_video_url)
+        video_info = await hass.async_add_executor_job(fetch_video_url)
 
         await hass.services.async_call('media_player', 'play_media', {
             'entity_id': entity_id,
-            'media_content_id': video_url,
-            'media_content_type': 'video'
+            'media_content_id': video_info['url'],
+            'media_content_type': 'video',
+            'extra': {
+                'title': video_info['name'],
+                'thumb': video_info['thumbnail'],
+            }
         })
     hass.services.async_register(
         DOMAIN, SERVICE_PLAY_LATEST, play_latest, SERVICE_PLAY_LATEST_SCHEMA
@@ -96,15 +104,19 @@ async def async_setup(hass, config):
         category = service.data.get(CONF_CATEGORY)
 
         def fetch_video_url():
-            return video_url_by_video_id(
+            return video_information_by_id(
                 random_video_id(program_name, categories=category)
             )
-        video_url = await hass.async_add_executor_job(fetch_video_url)
+        video_info = await hass.async_add_executor_job(fetch_video_url)
 
         await hass.services.async_call('media_player', 'play_media', {
             'entity_id': entity_id,
-            'media_content_id': video_url,
-            'media_content_type': 'video'
+            'media_content_id': video_info['url'],
+            'media_content_type': 'video',
+            'extra': {
+                'title': video_info['name'],
+                'thumb': video_info['thumbnail'],
+            }
         })
     hass.services.async_register(
         DOMAIN, SERVICE_PLAY_RANDOM, play_random, SERVICE_PLAY_RANDOM_SCHEMA
