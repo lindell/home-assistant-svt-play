@@ -8,6 +8,17 @@ import iso8601
 default_formats = ['hls', 'dash']
 
 
+def video_information_by_id(svt_video_id, formats=default_formats):
+    info = info_by_svt_id(svt_video_id)
+
+    return {
+        'url': video_url_by_video_id(svt_video_id),
+        'name': '{} - {}'.format(info['parent']['name'], info['name']),
+        'thumbnail': 'https://www.svtstatic.se/image/large/1024/{}/{}?format=auto&chromaSubSampling=false'
+        .format(info['image']['id'], info['image']['changed']),
+    }
+
+
 def video_url_by_video_id(svt_video_id, formats=default_formats):
     "Get the CDN video url"
     url = 'https://api.svt.se/video/{}'.format(svt_video_id)
@@ -131,3 +142,36 @@ def information_by_program_id(program_id):
     associated_content = data['data']['listablesBySlug'][0]
 
     return associated_content
+
+
+def info_by_svt_id(svt_id):
+    ""
+    query = """
+        query($id: String!) {
+            contentById(ids: [$id]) {
+                name
+                parent {
+                    name
+                }
+                image {
+                    id
+                    changed
+                }
+            }
+        }
+    """
+
+    query_data = {
+        'query': query,
+        'variables': {
+            'id': svt_id,
+        },
+    }
+
+    data = post('https://api.svt.se/contento/graphql', json=query_data).json()
+    if len(data['data']['contentById']) < 1:
+        raise Exception(
+            "Could not find video with id: {}".format(svt_id)
+        )
+
+    return data['data']['contentById'][0]
