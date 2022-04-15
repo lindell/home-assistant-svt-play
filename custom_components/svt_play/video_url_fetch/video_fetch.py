@@ -47,13 +47,14 @@ def video_url_from_videoplayer_api(url, formats):
         "Could not find video url with any of the formats: {}".format(formats))
 
 
-def video_id_by_time(program_id, index=0, categories=None):
+def video_id_by_time(program_id, exclude_category=None, categories=None, index=0):
     "Get the video id of a video based on the time it became available"
     program_data = information_by_program_id(program_id)
 
     videos = []
     for content in program_data['associatedContent']:
-        if categories is None or content['name'] in categories:
+        if ((categories is None or content['name'] in categories) and
+                (exclude_category is None or exclude_category not in content['name'])):
             videos += content['items']
 
     # Remove episodes with no validity date
