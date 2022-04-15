@@ -23,6 +23,7 @@ SERVICE_PLAY_LATEST = 'play_latest'
 SERVICE_PLAY_LATEST_SCHEMA = vol.Schema({
     CONF_ENTITY_ID: cv.entity_ids,
     CONF_PROGRAM_NAME: str,
+    CONF_SKIP: str,
     CONF_CATEGORY: category_names,
 })
 
@@ -76,10 +77,11 @@ async def async_setup(hass, config):
         entity_id = service.data.get(CONF_ENTITY_ID)
         program_name = service.data.get(CONF_PROGRAM_NAME)
         category = service.data.get(CONF_CATEGORY)
+        skip = service.data.get(CONF_SKIP)
 
         def fetch_video_url():
             return video_information_by_id(
-                video_id_by_time(program_name, categories=category)
+                video_id_by_time(program_name, skip, categories=category)
             )
         video_info = await hass.async_add_executor_job(fetch_video_url)
 
