@@ -19,8 +19,8 @@ play_latest:
     category:
       description: Name(s) of categories that should be used.
       example: "Klipp"
-    skip:
-      description: Skip shows containing text in title.
+    exclude:
+      description: Exclude shows containing text in title.
       example: "utan filmer"
 play_channel:
   description: Play the a specified channel
