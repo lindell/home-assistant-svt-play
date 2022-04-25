@@ -12,7 +12,7 @@ CONF_ENTITY_ID = 'entity_id'
 CONF_PROGRAM_NAME = 'program_name'
 CONF_CHANNEL = 'channel'
 CONF_CATEGORY = 'category'
-CONF_SKIP = 'skip'
+CONF_EXCLUDE = 'exclude'
 
 SERVICE_PLAY_SUGGESTED = 'play_suggested'
 SERVICE_PLAY_SUGGESTED_SCHEMA = vol.Schema({
@@ -24,7 +24,7 @@ SERVICE_PLAY_LATEST = 'play_latest'
 SERVICE_PLAY_LATEST_SCHEMA = vol.Schema({
     CONF_ENTITY_ID: cv.entity_ids,
     CONF_PROGRAM_NAME: str,
-    CONF_SKIP: str,
+    CONF_EXCLUDE: str,
     CONF_CATEGORY: category_names,
 })
 
@@ -78,11 +78,11 @@ async def async_setup(hass, config):
         entity_id = service.data.get(CONF_ENTITY_ID)
         program_name = service.data.get(CONF_PROGRAM_NAME)
         category = service.data.get(CONF_CATEGORY)
-        skip = service.data.get(CONF_SKIP)
+        exclude = service.data.get(CONF_EXCLUDE)
 
         def fetch_video_url():
             return video_information_by_id(
-                video_id_by_time(program_name, skip, categories=category)
+                video_id_by_time(program_name, exclude, categories=category)
             )
         video_info = await hass.async_add_executor_job(fetch_video_url)
 
