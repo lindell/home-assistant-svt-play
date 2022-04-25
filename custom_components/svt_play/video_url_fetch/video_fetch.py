@@ -55,7 +55,7 @@ def video_id_by_time(program_id, exclude=None, categories=None, index=0):
         categories = []
     videos = []
     for content in program_data['associatedContent']:
-        if (len(categories) < 1 or content['name'] in categories
+        if ((len(categories) < 1 or content['name'] in categories)
             and (exclude is None or exclude not in content['name'])):
                 videos += content['items']
 
