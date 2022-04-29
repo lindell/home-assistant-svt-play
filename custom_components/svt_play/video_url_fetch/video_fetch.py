@@ -51,11 +51,9 @@ def video_id_by_time(program_id, exclude=None, categories=None, index=0):
     "Get the video id of a video based on the time it became available"
     program_data = information_by_program_id(program_id)
 
-    if categories is None:
-        categories = []
     videos = []
     for content in program_data['associatedContent']:
-        if ((len(categories) < 1 or content['name'] in categories) and
+        if ((categories is None or content['name'] in categories) and
                 (exclude is None or exclude not in content['name'])):
             videos += content['items']
 
