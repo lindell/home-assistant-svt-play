@@ -16,14 +16,14 @@ Play the suggested video that is shown on svtplay.se. This is the recomended way
 ```
 
 ### Play Latest
-Play the latest video or clip from a specific program. There exist an option to just play the latest from specific categories.
+Play the latest video or clip from a specific program. There exists two options to exclude or include videos matching specific categories.
 ```yaml
 - service: svt_play.play_latest
   entity_id: media_player.living_room_tv
   data:
     program_name: skavlan
     category: Intervjuer # Optional
-    exclude: utan filmer # Optional
+    exclude_category: utan filmer # Optional
 ```
 
 ### Play random
