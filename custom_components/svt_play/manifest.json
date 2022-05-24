@@ -1,7 +1,7 @@
 {
     "domain": "svt_play",
     "name": "SVT Play",
-    "version": "1.0.5",
+    "version": "1.0.4",
     "documentation": "https://github.com/lindell/home-assistant-svt-play",
     "issue_tracker": "https://github.com/lindell/home-assistant-svt-play/issues",
     "iot_class": "cloud_polling",
