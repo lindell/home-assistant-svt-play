@@ -55,8 +55,8 @@ def video_id_by_time(program_id, skip=None, categories=None, index=0):
         categories = []
     videos = []
     for content in program_data['associatedContent']:
-        if ((len(categories) < 1 and skip is None)
-            or content['name'].find(skip) == -1 or content['name'] in categories):
+        if ((len(categories) < 1 and skip is None) or
+            content['name'].find(skip) == -1 or content['name'] in categories):
                 videos += content['items']
 
     # Remove episodes with no validity date
