@@ -12,7 +12,6 @@ CONF_ENTITY_ID = 'entity_id'
 CONF_PROGRAM_NAME = 'program_name'
 CONF_CHANNEL = 'channel'
 CONF_CATEGORY = 'category'
-CONF_SKIP = 'skip'
 
 SERVICE_PLAY_SUGGESTED = 'play_suggested'
 SERVICE_PLAY_SUGGESTED_SCHEMA = vol.Schema({

@@ -23,7 +23,6 @@ Play the latest video or clip from a specific program. There exist an option to 
   data:
     program_name: skavlan
     category: Intervjuer # Optional
-    skip: utan filmer # Optional
 ```
 
 ### Play Channel
