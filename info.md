@@ -17,12 +17,23 @@ Play the suggested video that is shown on svtplay.se. This is the recomended way
 
 ### Play Latest
 Play the latest video or clip from a specific program. There exists two options to exclude or include videos matching specific categories.
+```yaml
 - service: svt_play.play_latest
   entity_id: media_player.living_room_tv
   data:
     program_name: skavlan
     category: Intervjuer # Optional
     exclude_category: utan filmer # Optional
+```
+
+### Play random
+Play a random video or clip from a specific program. There exist an option to just random from specific categories.
+```yaml
+- service: svt_play.play_random
+  entity_id: media_player.living_room_tv
+  data:
+    program_name: skavlan
+    category: Intervjuer # Optional
 ```
 
 ### Play Channel
@@ -32,6 +43,14 @@ Play one of the svt channels.
   entity_id: media_player.living_room_tv
   data:
     channel: svt1 # Available channels: svt1, svt2, svtbarn, kunskapskanalen, svt24
+```
+### Play video id
+If a specific video should be played, its "id" can be extracted from the url. For example `jXvZLoG` is the id found in the following url:  `https://www.svtplay.se/video/jXvZLoG/ifs-invandrare-for-svenskar/avsnitt-3`
+```yaml
+- service: svt_play.play_videoid
+  entity_id: media_player.living_room_tv
+  data:
+    videoid: jXvZLoG
 ```
 
 ## Installation
