@@ -31,3 +31,12 @@ play_channel:
     entity_id:
       description: Name(s) of entities to play on.
       example: "media_player.living_room_chromecast"
+play_videoid:
+  description: Play the specified video id
+  fields:
+    videoid:
+      description: The id of the video.
+      example: "jXvZLoG"
+    entity_id:
+      description: Name(s) of entities to play on.
+      example: "media_player.living_room_chromecast"
