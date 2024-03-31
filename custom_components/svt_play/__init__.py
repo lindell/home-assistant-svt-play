@@ -13,6 +13,7 @@ CONF_PROGRAM_NAME = 'program_name'
 CONF_CHANNEL = 'channel'
 CONF_CATEGORY = 'category'
 CONF_EXCLUDE_CATEGORY = 'exclude_category'
+CONF_VIDEOID = 'videoid'
 
 SERVICE_PLAY_SUGGESTED = 'play_suggested'
 SERVICE_PLAY_SUGGESTED_SCHEMA = vol.Schema({
@@ -41,6 +42,13 @@ SERVICE_PLAY_CHANNEL_SCHEMA = vol.Schema({
     CONF_CHANNEL: str,
 })
 
+SERVICE_PLAY_VIDEOID = 'play_videoid'
+SERVICE_PLAY_VIDEOID_SCHEMA = vol.Schema(
+    {
+        CONF_ENTITY_ID: cv.entity_ids,
+        CONF_VIDEOID: str,
+    }
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -142,6 +150,35 @@ async def async_setup(hass, config):
         })
     hass.services.async_register(
         DOMAIN, SERVICE_PLAY_CHANNEL, play_channel, SERVICE_PLAY_CHANNEL_SCHEMA
+    )
+
+    async def play_videoid(service):
+        """Play the specified video id"""
+
+        entity_id = service.data.get(CONF_ENTITY_ID)
+        videoid = service.data.get(CONF_VIDEOID)
+
+        def fetch_video_url():
+            return video_information_by_id(videoid)
+
+        video_info = await hass.async_add_executor_job(fetch_video_url)
+
+        await hass.services.async_call(
+            'media_player',
+            'play_media',
+            {
+                'entity_id': entity_id,
+                'media_content_id': video_info['url'],
+                'media_content_type': 'video',
+                'extra': {
+                    'title': video_info['name'],
+                    'thumb': video_info['thumbnail'],
+                },
+            },
+        )
+
+    hass.services.async_register(
+        DOMAIN, SERVICE_PLAY_VIDEOID, play_videoid, SERVICE_PLAY_VIDEOID_SCHEMA
     )
 
     return True
