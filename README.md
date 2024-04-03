@@ -42,7 +42,7 @@ Play one of the svt channels.
 - service: svt_play.play_channel
   entity_id: media_player.living_room_tv
   data:
-    channel: svt1 # Available channels: svt1, svt2, svtbarn, kunskapskanalen, svt24
+    channel: svt1 # Available channels: svt1, svt2, barnkanalen, kunskapskanalen, svt24
 ```
 ### Play video id
 If a specific video should be played, its "id" can be extracted from the url. For example `jXvZLoG` is the id found in the following url:  `https://www.svtplay.se/video/jXvZLoG/ifs-invandrare-for-svenskar/avsnitt-3`
