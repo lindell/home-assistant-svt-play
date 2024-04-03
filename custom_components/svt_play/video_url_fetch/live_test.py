@@ -16,7 +16,7 @@ def test_rapport_by_suggested():
 
 def test_channels():
     errors = []
-    
+
     for channel in ['svt1', 'svt2', 'barnkanalen', 'kunskapskanalen', 'svt24']:
         url = video_url_by_channel(channel)
         if not url.startswith('http'):
