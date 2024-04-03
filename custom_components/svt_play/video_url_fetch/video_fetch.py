@@ -33,9 +33,9 @@ def video_url_by_channel(channel_id, formats=default_formats):
 
 def video_url_from_videoplayer_api(url, formats):
     data = get(url).json()
-    if 'message' in data:
+    if 'error' in data:
         raise Exception(
-            "Could not fetch video url: {}".format(data['message'])
+            "Could not fetch video url: {} {}".format(data['error'], url)
         )
 
     for format in formats:
