@@ -14,9 +14,14 @@ def test_rapport_by_suggested():
     assert url.startswith('http')
 
 
-def test_svt1():
-    url = video_url_by_channel("svt1")
-    assert url.startswith('http')
+def test_channels():
+    errors = []
+    
+    for channel in ['svt1', 'svt2', 'barnkanalen', 'kunskapskanalen', 'svt24']:
+        url = video_url_by_channel(channel)
+        if not url.startswith('http'):
+            errors.append(channel)
+    assert not errors
 
 
 def test_not_found_by_time():
