@@ -1,0 +1,14 @@
+{
+    "packages": {
+        ".": {
+            "release-type": "simple",
+            "extra-files": [
+                {
+                    "type": "json",
+                    "path": "custom_components/svt_play/manifest.json",
+                    "jsonpath": "$.version"
+                }
+            ]
+        }
+    }
+}
