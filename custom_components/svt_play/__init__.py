@@ -1,48 +1,62 @@
 import logging
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
-from .video_url_fetch.video_fetch import video_information_by_id, video_id_by_time, video_url_by_channel, suggested_video_id, random_video_id
+from .video_url_fetch.video_fetch import (
+    video_information_by_id,
+    video_id_by_time,
+    video_url_by_channel,
+    suggested_video_id,
+    random_video_id,
+)
 from .validation import category_names
 
 DOMAIN = "svt_play"
 
-DEPENDENCIES = ['media_player']
+DEPENDENCIES = ["media_player"]
 
-CONF_ENTITY_ID = 'entity_id'
-CONF_PROGRAM_NAME = 'program_name'
-CONF_CHANNEL = 'channel'
-CONF_CATEGORY = 'category'
-CONF_EXCLUDE_CATEGORY = 'exclude_category'
-CONF_VIDEOID = 'videoid'
+CONF_ENTITY_ID = "entity_id"
+CONF_PROGRAM_NAME = "program_name"
+CONF_CHANNEL = "channel"
+CONF_CATEGORY = "category"
+CONF_EXCLUDE_CATEGORY = "exclude_category"
+CONF_VIDEOID = "videoid"
 
-SERVICE_PLAY_SUGGESTED = 'play_suggested'
-SERVICE_PLAY_SUGGESTED_SCHEMA = vol.Schema({
-    CONF_ENTITY_ID: cv.entity_ids,
-    CONF_PROGRAM_NAME: str,
-})
+SERVICE_PLAY_SUGGESTED = "play_suggested"
+SERVICE_PLAY_SUGGESTED_SCHEMA = vol.Schema(
+    {
+        CONF_ENTITY_ID: cv.entity_ids,
+        CONF_PROGRAM_NAME: str,
+    }
+)
 
-SERVICE_PLAY_LATEST = 'play_latest'
-SERVICE_PLAY_LATEST_SCHEMA = vol.Schema({
-    CONF_ENTITY_ID: cv.entity_ids,
-    CONF_PROGRAM_NAME: str,
-    CONF_EXCLUDE_CATEGORY: str,
-    CONF_CATEGORY: category_names,
-})
+SERVICE_PLAY_LATEST = "play_latest"
+SERVICE_PLAY_LATEST_SCHEMA = vol.Schema(
+    {
+        CONF_ENTITY_ID: cv.entity_ids,
+        CONF_PROGRAM_NAME: str,
+        CONF_EXCLUDE_CATEGORY: str,
+        CONF_CATEGORY: category_names,
+    }
+)
 
-SERVICE_PLAY_RANDOM = 'play_random'
-SERVICE_PLAY_RANDOM_SCHEMA = vol.Schema({
-    CONF_ENTITY_ID: cv.entity_ids,
-    CONF_PROGRAM_NAME: str,
-    CONF_CATEGORY: category_names,
-})
+SERVICE_PLAY_RANDOM = "play_random"
+SERVICE_PLAY_RANDOM_SCHEMA = vol.Schema(
+    {
+        CONF_ENTITY_ID: cv.entity_ids,
+        CONF_PROGRAM_NAME: str,
+        CONF_CATEGORY: category_names,
+    }
+)
 
-SERVICE_PLAY_CHANNEL = 'play_channel'
-SERVICE_PLAY_CHANNEL_SCHEMA = vol.Schema({
-    CONF_ENTITY_ID: cv.entity_ids,
-    CONF_CHANNEL: str,
-})
+SERVICE_PLAY_CHANNEL = "play_channel"
+SERVICE_PLAY_CHANNEL_SCHEMA = vol.Schema(
+    {
+        CONF_ENTITY_ID: cv.entity_ids,
+        CONF_CHANNEL: str,
+    }
+)
 
-SERVICE_PLAY_VIDEOID = 'play_videoid'
+SERVICE_PLAY_VIDEOID = "play_videoid"
 SERVICE_PLAY_VIDEOID_SCHEMA = vol.Schema(
     {
         CONF_ENTITY_ID: cv.entity_ids,
@@ -62,20 +76,24 @@ async def async_setup(hass, config):
         program_name = service.data.get(CONF_PROGRAM_NAME)
 
         def fetch_video_url():
-            return video_information_by_id(
-                suggested_video_id(program_name)
-            )
+            return video_information_by_id(suggested_video_id(program_name))
+
         video_info = await hass.async_add_executor_job(fetch_video_url)
 
-        await hass.services.async_call('media_player', 'play_media', {
-            'entity_id': entity_id,
-            'media_content_id': video_info['url'],
-            'media_content_type': 'video',
-            'extra': {
-                'title': video_info['name'],
-                'thumb': video_info['thumbnail'],
-            }
-        })
+        await hass.services.async_call(
+            "media_player",
+            "play_media",
+            {
+                "entity_id": entity_id,
+                "media_content_id": video_info["url"],
+                "media_content_type": "video",
+                "extra": {
+                    "title": video_info["name"],
+                    "thumb": video_info["thumbnail"],
+                },
+            },
+        )
+
     hass.services.async_register(
         DOMAIN, SERVICE_PLAY_SUGGESTED, play_suggested, SERVICE_PLAY_SUGGESTED_SCHEMA
     )
@@ -92,17 +110,23 @@ async def async_setup(hass, config):
             return video_information_by_id(
                 video_id_by_time(program_name, exclude_category, categories=category)
             )
+
         video_info = await hass.async_add_executor_job(fetch_video_url)
 
-        await hass.services.async_call('media_player', 'play_media', {
-            'entity_id': entity_id,
-            'media_content_id': video_info['url'],
-            'media_content_type': 'video',
-            'extra': {
-                'title': video_info['name'],
-                'thumb': video_info['thumbnail'],
-            }
-        })
+        await hass.services.async_call(
+            "media_player",
+            "play_media",
+            {
+                "entity_id": entity_id,
+                "media_content_id": video_info["url"],
+                "media_content_type": "video",
+                "extra": {
+                    "title": video_info["name"],
+                    "thumb": video_info["thumbnail"],
+                },
+            },
+        )
+
     hass.services.async_register(
         DOMAIN, SERVICE_PLAY_LATEST, play_latest, SERVICE_PLAY_LATEST_SCHEMA
     )
@@ -118,17 +142,23 @@ async def async_setup(hass, config):
             return video_information_by_id(
                 random_video_id(program_name, categories=category)
             )
+
         video_info = await hass.async_add_executor_job(fetch_video_url)
 
-        await hass.services.async_call('media_player', 'play_media', {
-            'entity_id': entity_id,
-            'media_content_id': video_info['url'],
-            'media_content_type': 'video',
-            'extra': {
-                'title': video_info['name'],
-                'thumb': video_info['thumbnail'],
-            }
-        })
+        await hass.services.async_call(
+            "media_player",
+            "play_media",
+            {
+                "entity_id": entity_id,
+                "media_content_id": video_info["url"],
+                "media_content_type": "video",
+                "extra": {
+                    "title": video_info["name"],
+                    "thumb": video_info["thumbnail"],
+                },
+            },
+        )
+
     hass.services.async_register(
         DOMAIN, SERVICE_PLAY_RANDOM, play_random, SERVICE_PLAY_RANDOM_SCHEMA
     )
@@ -141,13 +171,19 @@ async def async_setup(hass, config):
 
         def fetch_video_url():
             return video_url_by_channel(channel)
+
         video_url = await hass.async_add_executor_job(fetch_video_url)
 
-        await hass.services.async_call('media_player', 'play_media', {
-            'entity_id': entity_id,
-            'media_content_id': video_url,
-            'media_content_type': 'video'
-        })
+        await hass.services.async_call(
+            "media_player",
+            "play_media",
+            {
+                "entity_id": entity_id,
+                "media_content_id": video_url,
+                "media_content_type": "video",
+            },
+        )
+
     hass.services.async_register(
         DOMAIN, SERVICE_PLAY_CHANNEL, play_channel, SERVICE_PLAY_CHANNEL_SCHEMA
     )
@@ -164,15 +200,15 @@ async def async_setup(hass, config):
         video_info = await hass.async_add_executor_job(fetch_video_url)
 
         await hass.services.async_call(
-            'media_player',
-            'play_media',
+            "media_player",
+            "play_media",
             {
-                'entity_id': entity_id,
-                'media_content_id': video_info['url'],
-                'media_content_type': 'video',
-                'extra': {
-                    'title': video_info['name'],
-                    'thumb': video_info['thumbnail'],
+                "entity_id": entity_id,
+                "media_content_id": video_info["url"],
+                "media_content_type": "video",
+                "extra": {
+                    "title": video_info["name"],
+                    "thumb": video_info["thumbnail"],
                 },
             },
         )
