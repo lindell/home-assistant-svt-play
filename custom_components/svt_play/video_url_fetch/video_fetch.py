@@ -5,8 +5,14 @@ from datetime import timezone
 import random
 import iso8601
 
-default_formats = ['hls', 'dash']
-
+default_formats = [
+    'dash-avc',
+    'dash',
+    'hls-cmaf-avc',
+    'hls',
+    'hls-ts-full',
+    'dash-hbbtv-hevc',
+]
 
 def video_information_by_id(svt_video_id, formats=default_formats):
     info = info_by_svt_id(svt_video_id)
