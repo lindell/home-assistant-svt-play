@@ -3,6 +3,7 @@ name: Daily test
 on:
   schedule:
     - cron: "0 8,18 * * *"
+  pull_request:
 
 jobs:
   build:
