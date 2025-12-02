@@ -3,6 +3,7 @@ name: Daily test
 on:
   schedule:
     - cron: "0 8,18 * * *"
+  pull_request:
 
 jobs:
   build:
@@ -21,6 +22,7 @@ jobs:
       - name: Test with pytest
         run: |
           pip install pytest
+          pip install homeassistant
           tries=0
           until [ "$tries" -ge 5 ]
           do
