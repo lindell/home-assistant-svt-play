@@ -1,15 +1,15 @@
 {
     "domain": "svt_play",
     "name": "SVT Play",
-    "version": "1.2.1",
-    "documentation": "https://github.com/lindell/home-assistant-svt-play",
-    "issue_tracker": "https://github.com/lindell/home-assistant-svt-play/issues",
-    "iot_class": "cloud_polling",
+    "codeowners": [],
     "dependencies": [
         "media_player"
     ],
-    "codeowners": [],
+    "documentation": "https://github.com/lindell/home-assistant-svt-play",
+    "iot_class": "cloud_polling",
+    "issue_tracker": "https://github.com/lindell/home-assistant-svt-play/issues",
     "requirements": [
         "iso8601"
-    ]
+    ],
+    "version": "1.2.1"
 }
