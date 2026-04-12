@@ -2,6 +2,7 @@
     "domain": "svt_play",
     "name": "SVT Play",
     "codeowners": [],
+    "config_flow": true,
     "dependencies": [
         "media_player"
     ],
@@ -11,5 +12,5 @@
     "requirements": [
         "iso8601"
     ],
-    "version": "1.2.1"
+    "version": "2.0.0"
 }

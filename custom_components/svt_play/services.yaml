@@ -1,42 +1,79 @@
 play_suggested:
-  description: Play the suggested episode
   fields:
-    program_name:
-      description: The name of the SVT program.
-      example: "rapport"
     entity_id:
-      description: Name(s) of entities to play on.
-      example: "media_player.living_room_chromecast"
+      required: true
+      selector:
+        entity:
+          domain: media_player
+    program_name:
+      required: true
+      example: "rapport"
+      selector:
+        text:
 play_latest:
-  description: Play the latest episode
   fields:
+    entity_id:
+      required: true
+      selector:
+        entity:
+          domain: media_player
     program_name:
-      description: The name of the SVT program.
+      required: true
       example: "rapport"
-    entity_id:
-      description: Name(s) of entities to play on.
-      example: "media_player.living_room_chromecast"
+      selector:
+        text:
     category:
-      description: Name(s) of categories that should be used.
       example: "Klipp"
+      selector:
+        text:
     exclude_category:
-      description: Name(s) of categories that shouldn't be used.
       example: "utan filmer"
+      selector:
+        text:
+play_random:
+  fields:
+    entity_id:
+      required: true
+      selector:
+        entity:
+          domain: media_player
+    program_name:
+      required: true
+      example: "rapport"
+      selector:
+        text:
+    category:
+      example: "Klipp"
+      selector:
+        text:
 play_channel:
-  description: Play the a specified channel
   fields:
+    entity_id:
+      required: true
+      selector:
+        entity:
+          domain: media_player
     channel:
-      description: The name of the channel.
+      required: true
       example: "svt1"
-    entity_id:
-      description: Name(s) of entities to play on.
-      example: "media_player.living_room_chromecast"
+      selector:
+        select:
+          options:
+            - "svt1"
+            - "svt2"
+            - "barnkanalen"
+            - "kunskapskanalen"
+            - "svt24"
+          custom_value: true
 play_videoid:
-  description: Play the specified video id
   fields:
-    videoid:
-      description: The id of the video.
-      example: "jXvZLoG"
     entity_id:
-      description: Name(s) of entities to play on.
-      example: "media_player.living_room_chromecast"
+      required: true
+      selector:
+        entity:
+          domain: media_player
+    videoid:
+      required: true
+      example: "jXvZLoG"
+      selector:
+        text:

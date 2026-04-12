@@ -1,6 +1,8 @@
 import logging
 import homeassistant.helpers.config_validation as cv
 import voluptuous as vol
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant
 from .video_url_fetch.video_fetch import (
     video_information_by_id,
     video_id_by_time,
@@ -9,10 +11,7 @@ from .video_url_fetch.video_fetch import (
     random_video_id,
 )
 from .validation import category_names
-
-DOMAIN = "svt_play"
-
-DEPENDENCIES = ["media_player"]
+from .const import DOMAIN
 
 CONF_ENTITY_ID = "entity_id"
 CONF_PROGRAM_NAME = "program_name"
@@ -67,7 +66,8 @@ SERVICE_PLAY_VIDEOID_SCHEMA = vol.Schema(
 _LOGGER = logging.getLogger(__name__)
 
 
-async def async_setup(hass, config):
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Set up SVT Play from a config entry."""
 
     async def play_suggested(service):
         """Play the suggested svt play video from a specified program"""
@@ -217,4 +217,14 @@ async def async_setup(hass, config):
         DOMAIN, SERVICE_PLAY_VIDEOID, play_videoid, SERVICE_PLAY_VIDEOID_SCHEMA
     )
 
+    return True
+
+
+async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Unload a config entry."""
+    hass.services.async_remove(DOMAIN, SERVICE_PLAY_SUGGESTED)
+    hass.services.async_remove(DOMAIN, SERVICE_PLAY_LATEST)
+    hass.services.async_remove(DOMAIN, SERVICE_PLAY_RANDOM)
+    hass.services.async_remove(DOMAIN, SERVICE_PLAY_CHANNEL)
+    hass.services.async_remove(DOMAIN, SERVICE_PLAY_VIDEOID)
     return True

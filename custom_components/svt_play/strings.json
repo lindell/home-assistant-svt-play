@@ -1,0 +1,97 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "SVT Play",
+                "description": "Set up the SVT Play integration to access services for playing SVT content on your media players."
+            }
+        },
+        "abort": {
+            "single_instance_allowed": "SVT Play is already configured."
+        }
+    },
+    "services": {
+        "play_suggested": {
+            "name": "Play suggested",
+            "description": "Play the suggested episode from a program.",
+            "fields": {
+                "entity_id": {
+                    "name": "Media player",
+                    "description": "Media player(s) to play on."
+                },
+                "program_name": {
+                    "name": "Program name",
+                    "description": "The SVT program slug (e.g. rapport)."
+                }
+            }
+        },
+        "play_latest": {
+            "name": "Play latest",
+            "description": "Play the latest episode from a program.",
+            "fields": {
+                "entity_id": {
+                    "name": "Media player",
+                    "description": "Media player(s) to play on."
+                },
+                "program_name": {
+                    "name": "Program name",
+                    "description": "The SVT program slug (e.g. rapport)."
+                },
+                "category": {
+                    "name": "Category",
+                    "description": "Only include episodes from these categories."
+                },
+                "exclude_category": {
+                    "name": "Exclude category",
+                    "description": "Exclude episodes matching this category."
+                }
+            }
+        },
+        "play_random": {
+            "name": "Play random",
+            "description": "Play a random episode from a program.",
+            "fields": {
+                "entity_id": {
+                    "name": "Media player",
+                    "description": "Media player(s) to play on."
+                },
+                "program_name": {
+                    "name": "Program name",
+                    "description": "The SVT program slug (e.g. rapport)."
+                },
+                "category": {
+                    "name": "Category",
+                    "description": "Only include episodes from these categories."
+                }
+            }
+        },
+        "play_channel": {
+            "name": "Play channel",
+            "description": "Play a live SVT channel.",
+            "fields": {
+                "entity_id": {
+                    "name": "Media player",
+                    "description": "Media player(s) to play on."
+                },
+                "channel": {
+                    "name": "Channel",
+                    "description": "The SVT channel to play."
+                }
+            }
+        },
+        "play_videoid": {
+            "name": "Play video ID",
+            "description": "Play a specific SVT video by its ID.",
+            "fields": {
+                "entity_id": {
+                    "name": "Media player",
+                    "description": "Media player(s) to play on."
+                },
+                "videoid": {
+                    "name": "Video ID",
+                    "description": "The SVT video ID to play."
+                }
+            }
+        }
+    }
+}
