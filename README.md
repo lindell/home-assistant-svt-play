@@ -79,6 +79,23 @@ Install via [Home Assistant Community Store](https://hacs.xyz/)
 1. Go to **Settings** → **Devices & Services** → **Add Integration**.
 2. Search for **SVT Play** and follow the setup flow.
 
+
+### Configuration options
+
+You can optionally configure the video formats to use per service call. The first format in the list that is available for a video will be used. This can be useful if your media player only supports certain formats.
+
+```yaml
+- service: svt_play.play_suggested
+  entity_id: media_player.living_room_tv
+  data:
+    program_name: rapport
+    formats: # Optional
+      - hls-cmaf-full
+      - dash
+```
+
+Some of the supported formats: `dash-full`, `hls-cmaf-full`, `dash-lb-full`, `dash-hbbtv-avc`, `hls-ts-full`, `dash-avc`, `hls-cmaf-lb-full`, `dash`, `hls-cmaf-avc`, `hls`, `hls-ts-lb-full`, `dash-hbbtv-hevc`.
+
 ### Use in automations
 
 And then add the automation you want:

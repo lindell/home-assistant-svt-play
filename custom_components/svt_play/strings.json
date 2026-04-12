@@ -22,6 +22,10 @@
                 "program_name": {
                     "name": "Program name",
                     "description": "The SVT program slug (e.g. rapport)."
+                },
+                "formats": {
+                    "name": "Formats",
+                    "description": "Video formats to try, in order of preference."
                 }
             }
         },
@@ -44,6 +48,10 @@
                 "exclude_category": {
                     "name": "Exclude category",
                     "description": "Exclude episodes matching this category."
+                },
+                "formats": {
+                    "name": "Formats",
+                    "description": "Video formats to try, in order of preference."
                 }
             }
         },
@@ -62,6 +70,10 @@
                 "category": {
                     "name": "Category",
                     "description": "Only include episodes from these categories."
+                },
+                "formats": {
+                    "name": "Formats",
+                    "description": "Video formats to try, in order of preference."
                 }
             }
         },
@@ -76,6 +88,10 @@
                 "channel": {
                     "name": "Channel",
                     "description": "The SVT channel to play."
+                },
+                "formats": {
+                    "name": "Formats",
+                    "description": "Video formats to try, in order of preference."
                 }
             }
         },
@@ -90,6 +106,10 @@
                 "videoid": {
                     "name": "Video ID",
                     "description": "The SVT video ID to play."
+                },
+                "formats": {
+                    "name": "Formats",
+                    "description": "Video formats to try, in order of preference."
                 }
             }
         }

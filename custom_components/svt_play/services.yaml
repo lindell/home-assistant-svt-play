@@ -10,6 +10,25 @@ play_suggested:
       example: "rapport"
       selector:
         text:
+    formats:
+      example: ["hls", "dash"]
+      selector:
+        select:
+          multiple: true
+          custom_value: true
+          options:
+            - "hls"
+            - "dash"
+            - "dash-full"
+            - "hls-cmaf-full"
+            - "dash-lb-full"
+            - "dash-hbbtv-avc"
+            - "hls-ts-full"
+            - "dash-avc"
+            - "hls-cmaf-lb-full"
+            - "hls-cmaf-avc"
+            - "hls-ts-lb-full"
+            - "dash-hbbtv-hevc"
 play_latest:
   fields:
     entity_id:
@@ -46,6 +65,25 @@ play_random:
       example: "Klipp"
       selector:
         text:
+    formats:
+      example: ["hls", "dash"]
+      selector:
+        select:
+          multiple: true
+          custom_value: true
+          options:
+            - "hls"
+            - "dash"
+            - "dash-full"
+            - "hls-cmaf-full"
+            - "dash-lb-full"
+            - "dash-hbbtv-avc"
+            - "hls-ts-full"
+            - "dash-avc"
+            - "hls-cmaf-lb-full"
+            - "hls-cmaf-avc"
+            - "hls-ts-lb-full"
+            - "dash-hbbtv-hevc"
 play_channel:
   fields:
     entity_id:
@@ -65,6 +103,25 @@ play_channel:
             - "kunskapskanalen"
             - "svt24"
           custom_value: true
+    formats:
+      example: ["hls", "dash"]
+      selector:
+        select:
+          multiple: true
+          custom_value: true
+          options:
+            - "hls"
+            - "dash"
+            - "dash-full"
+            - "hls-cmaf-full"
+            - "dash-lb-full"
+            - "dash-hbbtv-avc"
+            - "hls-ts-full"
+            - "dash-avc"
+            - "hls-cmaf-lb-full"
+            - "hls-cmaf-avc"
+            - "hls-ts-lb-full"
+            - "dash-hbbtv-hevc"
 play_videoid:
   fields:
     entity_id:
@@ -77,3 +134,22 @@ play_videoid:
       example: "jXvZLoG"
       selector:
         text:
+    formats:
+      example: ["hls", "dash"]
+      selector:
+        select:
+          multiple: true
+          custom_value: true
+          options:
+            - "hls"
+            - "dash"
+            - "dash-full"
+            - "hls-cmaf-full"
+            - "dash-lb-full"
+            - "dash-hbbtv-avc"
+            - "hls-ts-full"
+            - "dash-avc"
+            - "hls-cmaf-lb-full"
+            - "hls-cmaf-avc"
+            - "hls-ts-lb-full"
+            - "dash-hbbtv-hevc"
