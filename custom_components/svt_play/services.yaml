@@ -7,6 +7,9 @@ play_suggested:
     entity_id:
       description: Name(s) of entities to play on.
       example: "media_player.living_room_chromecast"
+    formats:
+      description: List of video formats to try, in order of preference.
+      example: ["hls", "dash"]
 play_latest:
   description: Play the latest episode
   fields:
@@ -22,6 +25,9 @@ play_latest:
     exclude_category:
       description: Name(s) of categories that shouldn't be used.
       example: "utan filmer"
+    formats:
+      description: List of video formats to try, in order of preference.
+      example: ["hls", "dash"]
 play_channel:
   description: Play the a specified channel
   fields:
@@ -31,6 +37,9 @@ play_channel:
     entity_id:
       description: Name(s) of entities to play on.
       example: "media_player.living_room_chromecast"
+    formats:
+      description: List of video formats to try, in order of preference.
+      example: ["hls", "dash"]
 play_videoid:
   description: Play the specified video id
   fields:
@@ -40,3 +49,6 @@ play_videoid:
     entity_id:
       description: Name(s) of entities to play on.
       example: "media_player.living_room_chromecast"
+    formats:
+      description: List of video formats to try, in order of preference.
+      example: ["hls", "dash"]
