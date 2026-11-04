@@ -2,6 +2,7 @@ from requests import get
 from requests import post
 from datetime import datetime
 from datetime import timezone
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 import random
 import iso8601
 
@@ -14,12 +15,19 @@ default_formats = [
     "dash-hbbtv-hevc",
 ]
 
+REGIONS = (
+    "blekinge", "dalarna", "gavleborg", "halland", "helsingborg",
+    "jamtland", "jonkoping", "norrbotten", "orebro", "ost", "skane",
+    "smaland", "sodertalje", "sormland", "stockholm", "uppsala",
+    "varmland", "vast", "vasterbotten", "vasternorrland", "vastmanland",
+)
 
-def video_information_by_id(svt_video_id, formats=default_formats):
+
+def video_information_by_id(svt_video_id, formats=default_formats, region=None):
     info = info_by_svt_id(svt_video_id)
 
     return {
-        "url": video_url_by_video_id(svt_video_id),
+        "url": video_url_by_video_id(svt_video_id, formats=formats, region=region),
         "name": "{} - {}".format(info["parent"]["name"], info["name"]),
         "thumbnail": "https://www.svtstatic.se/image/large/1024/{}/{}?format=auto&chromaSubSampling=false".format(
             info["image"]["id"], info["image"]["changed"]
@@ -27,19 +35,22 @@ def video_information_by_id(svt_video_id, formats=default_formats):
     }
 
 
-def video_url_by_video_id(svt_video_id, formats=default_formats):
+def video_url_by_video_id(svt_video_id, formats=default_formats, region=None):
     "Get the CDN video url"
     url = "https://api.svt.se/video/{}".format(svt_video_id)
-    return video_url_from_videoplayer_api(url, formats)
+    return video_url_from_videoplayer_api(url, formats, region=region)
 
 
-def video_url_by_channel(channel_id, formats=default_formats):
+def video_url_by_channel(channel_id, formats=default_formats, region=None):
     "Get the CDN video url by a channel name"
     url = "https://api.svt.se/videoplayer-api/video/ch-{}".format(channel_id)
-    return video_url_from_videoplayer_api(url, formats)
+    return video_url_from_videoplayer_api(url, formats, region=region)
 
 
-def video_url_from_videoplayer_api(url, formats):
+def video_url_from_videoplayer_api(url, formats, region=None):
+    if region is not None and region not in REGIONS:
+        raise ValueError("Unknown SVT news region: {}".format(region))
+
     data = get(url).json()
     if "error" in data:
         raise Exception("Could not fetch video url: {} {}".format(data["error"], url))
@@ -47,7 +58,14 @@ def video_url_from_videoplayer_api(url, formats):
     for format in formats:
         for video_reference in data["videoReferences"]:
             if video_reference["format"] == format:
-                return video_reference["url"]
+                video_url = video_reference["url"]
+                if region is None:
+                    return video_url
+
+                parts = urlsplit(video_url)
+                query = [(key, value) for key, value in parse_qsl(parts.query, keep_blank_values=True) if key != "region"]
+                query.append(("region", region))
+                return urlunsplit(parts._replace(query=urlencode(query)))
 
     raise Exception(
         "Could not find video url with any of the formats: {}".format(formats)

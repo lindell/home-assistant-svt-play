@@ -8,6 +8,7 @@ from .video_url_fetch.video_fetch import (
     suggested_video_id,
     random_video_id,
     default_formats,
+    REGIONS,
 )
 from .validation import category_names
 
@@ -19,6 +20,7 @@ CONF_FORMATS = "formats"
 CONF_ENTITY_ID = "entity_id"
 CONF_PROGRAM_NAME = "program_name"
 CONF_CHANNEL = "channel"
+CONF_REGION = "region"
 CONF_CATEGORY = "category"
 CONF_EXCLUDE_CATEGORY = "exclude_category"
 CONF_VIDEOID = "videoid"
@@ -28,6 +30,7 @@ SERVICE_PLAY_SUGGESTED_SCHEMA = vol.Schema(
     {
         CONF_ENTITY_ID: cv.entity_ids,
         CONF_PROGRAM_NAME: str,
+        vol.Optional(CONF_REGION): vol.In(REGIONS),
         vol.Optional(CONF_FORMATS): vol.All(cv.ensure_list, [str]),
     }
 )
@@ -39,6 +42,7 @@ SERVICE_PLAY_LATEST_SCHEMA = vol.Schema(
         CONF_PROGRAM_NAME: str,
         CONF_EXCLUDE_CATEGORY: str,
         CONF_CATEGORY: category_names,
+        vol.Optional(CONF_REGION): vol.In(REGIONS),
         vol.Optional(CONF_FORMATS): vol.All(cv.ensure_list, [str]),
     }
 )
@@ -49,6 +53,7 @@ SERVICE_PLAY_RANDOM_SCHEMA = vol.Schema(
         CONF_ENTITY_ID: cv.entity_ids,
         CONF_PROGRAM_NAME: str,
         CONF_CATEGORY: category_names,
+        vol.Optional(CONF_REGION): vol.In(REGIONS),
         vol.Optional(CONF_FORMATS): vol.All(cv.ensure_list, [str]),
     }
 )
@@ -58,6 +63,7 @@ SERVICE_PLAY_CHANNEL_SCHEMA = vol.Schema(
     {
         CONF_ENTITY_ID: cv.entity_ids,
         CONF_CHANNEL: str,
+        vol.Optional(CONF_REGION): vol.In(REGIONS),
         vol.Optional(CONF_FORMATS): vol.All(cv.ensure_list, [str]),
     }
 )
@@ -67,6 +73,7 @@ SERVICE_PLAY_VIDEOID_SCHEMA = vol.Schema(
     {
         CONF_ENTITY_ID: cv.entity_ids,
         CONF_VIDEOID: str,
+        vol.Optional(CONF_REGION): vol.In(REGIONS),
         vol.Optional(CONF_FORMATS): vol.All(cv.ensure_list, [str]),
     }
 )
@@ -81,11 +88,12 @@ async def async_setup(hass, config):
 
         entity_id = service.data.get(CONF_ENTITY_ID)
         program_name = service.data.get(CONF_PROGRAM_NAME)
+        region = service.data.get(CONF_REGION)
         formats = service.data.get(CONF_FORMATS, default_formats)
 
         def fetch_video_url():
             return video_information_by_id(
-                suggested_video_id(program_name), formats=formats
+                suggested_video_id(program_name), formats=formats, region=region
             )
 
         video_info = await hass.async_add_executor_job(fetch_video_url)
@@ -115,12 +123,13 @@ async def async_setup(hass, config):
         program_name = service.data.get(CONF_PROGRAM_NAME)
         category = service.data.get(CONF_CATEGORY)
         exclude_category = service.data.get(CONF_EXCLUDE_CATEGORY)
+        region = service.data.get(CONF_REGION)
         formats = service.data.get(CONF_FORMATS, default_formats)
 
         def fetch_video_url():
             return video_information_by_id(
                 video_id_by_time(program_name, exclude_category, categories=category),
-                formats=formats,
+                formats=formats, region=region,
             )
 
         video_info = await hass.async_add_executor_job(fetch_video_url)
@@ -149,12 +158,13 @@ async def async_setup(hass, config):
         entity_id = service.data.get(CONF_ENTITY_ID)
         program_name = service.data.get(CONF_PROGRAM_NAME)
         category = service.data.get(CONF_CATEGORY)
+        region = service.data.get(CONF_REGION)
         formats = service.data.get(CONF_FORMATS, default_formats)
 
         def fetch_video_url():
             return video_information_by_id(
                 random_video_id(program_name, categories=category),
-                formats=formats,
+                formats=formats, region=region,
             )
 
         video_info = await hass.async_add_executor_job(fetch_video_url)
@@ -182,10 +192,11 @@ async def async_setup(hass, config):
 
         entity_id = service.data.get(CONF_ENTITY_ID)
         channel = service.data.get(CONF_CHANNEL)
+        region = service.data.get(CONF_REGION)
         formats = service.data.get(CONF_FORMATS, default_formats)
 
         def fetch_video_url():
-            return video_url_by_channel(channel, formats=formats)
+            return video_url_by_channel(channel, formats=formats, region=region)
 
         video_url = await hass.async_add_executor_job(fetch_video_url)
 
@@ -208,10 +219,11 @@ async def async_setup(hass, config):
 
         entity_id = service.data.get(CONF_ENTITY_ID)
         videoid = service.data.get(CONF_VIDEOID)
+        region = service.data.get(CONF_REGION)
         formats = service.data.get(CONF_FORMATS, default_formats)
 
         def fetch_video_url():
-            return video_information_by_id(videoid, formats=formats)
+            return video_information_by_id(videoid, formats=formats, region=region)
 
         video_info = await hass.async_add_executor_job(fetch_video_url)
 

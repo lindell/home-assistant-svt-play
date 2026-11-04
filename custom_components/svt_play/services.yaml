@@ -7,6 +7,9 @@ play_suggested:
     entity_id:
       description: Name(s) of entities to play on.
       example: "media_player.living_room_chromecast"
+    region:
+      description: Optional local news region, for example jamtland, skane or vast. Availability depends on the broadcast.
+      example: "jamtland"
     formats:
       description: List of video formats to try, in order of preference.
       example: ["hls", "dash"]
@@ -25,6 +28,27 @@ play_latest:
     exclude_category:
       description: Name(s) of categories that shouldn't be used.
       example: "utan filmer"
+    region:
+      description: Optional local news region, for example jamtland, skane or vast. Availability depends on the broadcast.
+      example: "jamtland"
+    formats:
+      description: List of video formats to try, in order of preference.
+      example: ["hls", "dash"]
+play_random:
+  description: Play a random episode or clip
+  fields:
+    program_name:
+      description: The name of the SVT program.
+      example: "rapport"
+    entity_id:
+      description: Name(s) of entities to play on.
+      example: "media_player.living_room_chromecast"
+    category:
+      description: Name(s) of categories that should be used.
+      example: "Klipp"
+    region:
+      description: Optional local news region, for example jamtland, skane or vast. Availability depends on the broadcast.
+      example: "jamtland"
     formats:
       description: List of video formats to try, in order of preference.
       example: ["hls", "dash"]
@@ -37,6 +61,9 @@ play_channel:
     entity_id:
       description: Name(s) of entities to play on.
       example: "media_player.living_room_chromecast"
+    region:
+      description: Optional local news region, for example jamtland, skane or vast. Availability depends on the broadcast.
+      example: "jamtland"
     formats:
       description: List of video formats to try, in order of preference.
       example: ["hls", "dash"]
@@ -49,6 +76,9 @@ play_videoid:
     entity_id:
       description: Name(s) of entities to play on.
       example: "media_player.living_room_chromecast"
+    region:
+      description: Optional local news region, for example jamtland, skane or vast. Availability depends on the broadcast.
+      example: "jamtland"
     formats:
       description: List of video formats to try, in order of preference.
       example: ["hls", "dash"]
