@@ -51,6 +51,7 @@ Play one of the svt channels.
   entity_id: media_player.living_room_tv
   data:
     channel: svt1 # Available channels: svt1, svt2, barnkanalen, kunskapskanalen, svt24
+    region: jamtland # Optional local news region
 ```
 
 ### Play video id
@@ -63,6 +64,28 @@ If a specific video should be played, its "id" can be extracted from the url. Fo
   data:
     videoid: jXvZLoG
 ```
+
+### Regional news
+
+All playback actions accept the optional `region` argument. It requests regional content from SVT when that content is available; omitting it keeps SVT's default stream.
+
+For live channels, use `play_channel` with `channel: svt1` or `channel: svt2` and a region, as in the example above. Regional content depends on what SVT provides for the channel and broadcast. SVT2 may return the default stream even when a region is supplied.
+
+You can also select a programme, such as Morgonstudion:
+
+```yaml
+- service: svt_play.play_suggested
+  entity_id: media_player.living_room_tv
+  data:
+    program_name: morgonstudion
+    region: jamtland
+    formats:
+      - hls
+```
+
+The same argument is available with `play_latest`, `play_random`, and `play_videoid`. A region does not change episode selection or turn an ordinary programme into a regional version. SVT's Morgonstudion manifests support regional playlists for the live programme and recent episodes; other programmes may ignore the preference.
+
+Supported region IDs: `blekinge`, `dalarna`, `gavleborg`, `halland`, `helsingborg`, `jamtland`, `jonkoping`, `norrbotten`, `orebro`, `ost`, `skane`, `smaland`, `sodertalje`, `sormland`, `stockholm`, `uppsala`, `varmland`, `vast`, `vasterbotten`, `vasternorrland`, `vastmanland`.
 
 ## Installation
 
